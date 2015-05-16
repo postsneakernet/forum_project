@@ -33,7 +33,7 @@ class Home(generic.ListView):
 
 
 class TopicIndex(generic.ListView):
-    template_name = 'topics.html'
+    template_name = 'topic_index.html'
     context_object_name = 'topics'
 
     def get_context_data(self, **kwargs):
@@ -47,7 +47,7 @@ class TopicIndex(generic.ListView):
 
 
 class TopicDetail(generic.ListView):
-    template_name = 'thread_index.html'
+    template_name = 'topic_detail.html'
     context_object_name = 'thread_index'
     topic_slug = None
     def get_context_data(self, **kwargs):
