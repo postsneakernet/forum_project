@@ -61,5 +61,3 @@ target/
 
 # PyCharm
 .idea/
-.__pycache__/
-*.pyc
