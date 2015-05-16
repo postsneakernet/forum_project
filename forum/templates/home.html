@@ -61,7 +61,8 @@
         <div class="row">
         {% for topic in topics %}
                 <div class="span2">
-                  <li><i class="icon-facebook"></i>{{ topic.title }}</li>
+                  <li>
+                      <i class="icon-facebook"></i><a href="{% url 'topic_detail' topic_slug=topic.slug %}">{{ topic.title }}</a></li>
                 </div>
         {% endfor %}
             </div>
