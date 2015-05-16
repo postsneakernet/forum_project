@@ -67,7 +67,7 @@ class ThreadDetail(generic.DetailView):
     context_object_name = 'thread_detail'
 
     def get_context_data(self, **kwargs):
-        context = super(Thread, self).get_context_data(**kwargs)
+        context = super(ThreadDetail, self).get_context_data(**kwargs)
         context['threads'] = Thread.objects.order_by('created')[:5]
         context['topics'] = Topic.objects.all()
         context['side_threads'] = side_bar_threads()
