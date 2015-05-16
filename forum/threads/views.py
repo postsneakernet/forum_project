@@ -61,7 +61,7 @@ class TopicDetail(generic.ListView):
         topic_slug = self.kwargs['topic_slug']
         context['threads'] = Thread.objects.filter(subject__slug=topic_slug)
         context['topics'] = Topic.objects.all()
-        context['topic'] = get_object_or_404(Topic,slug=topic_slug)
+        context['topic'] = get_object_or_404(Topic, slug=topic_slug)
         context['side_threads'] = side_bar_threads()
         return context
 
@@ -69,16 +69,13 @@ class TopicDetail(generic.ListView):
         return Thread.objects.all()
 
 
-class ThreadDetail(generic.ListView):
-    template_name = 'thread_detail.html'
-    # context_object_name = 'thread_detail'
+def thread_detail(request, thread_slug, topic_slug):
+    threads = Thread.objects.order_by('created')[:5]
+    thread = get_object_or_404(Thread, slug=thread_slug)
+    topics = Topic.objects.all()
+    side_threads = side_bar_threads()
 
-    def get_context_data(self, **kwargs):
-        context = super(ThreadDetail, self).get_context_data(**kwargs)
-        context['threads'] = Thread.objects.order_by('created')[:5]
-        context['topics'] = Topic.objects.all()
-        context['side_threads'] = side_bar_threads()
-        return context
+    return render(request, 'thread_detail.html',
+                  {'threads': threads, 'thread': thread, 'topics': topics, 'side_threads': side_threads})
 
-    def get_queryset(self):
-        return Thread.objects.all()
+
