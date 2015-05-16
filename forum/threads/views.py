@@ -62,7 +62,7 @@ class TopicDetail(generic.ListView):
         return Thread.objects.all()
 
 
-class Thread(generic.DetailView):
+class ThreadDetail(generic.DetailView):
     template_name = 'thread_detail.html'
     context_object_name = 'thread_detail'
 
