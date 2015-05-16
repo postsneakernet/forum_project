@@ -14,7 +14,27 @@
 {% endblock %}
 
 {% block content %}
-    {{ block.super }}
+    {% if threads %}
+        {%  for thread in threads %}
+            <div class="feed_stacked">
+              <div class="feed_item">
+                <div class="feed_body">
+                  <div class="row">
+                    <div class="feed_profile_pic">
+                      <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
+                    </div>
+                    <div class="feed_text">
+                        <p>{{ thread.title }}</p>
+                      <p>{{ thread.body }}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}
 
 {% block sidebartitle %}
@@ -22,13 +42,29 @@
 {% endblock %}
 
 {% block sidebar %}
-    {{ block.super }}
+    {% if side_threads %}
+        {% for side_thread in side_threads %}
+            <i class="icon-ok"></i> {{ side_thread.title }}
+            <br/><br/>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block bottomtitle %}
-    Browse by tag
+    Browse by subject
 {% endblock %}
 
 {% block bottom %}
-    {{ block.super }}
+    {% if topics %}
+        <p>Topics</p>
+        <ul class="elusive_icons">
+        <div class="row">
+        {% for topic in topics %}
+                <div class="span2">
+                  <li><i class="icon-facebook"></i>{{ topic.title }}</li>
+                </div>
+        {% endfor %}
+            </div>
+        </ul>
+    {% endif %}
 {% endblock %}
