@@ -74,8 +74,10 @@ def thread_detail(request, thread_slug, topic_slug):
     thread = get_object_or_404(Thread, slug=thread_slug)
     topics = Topic.objects.all()
     side_threads = side_bar_threads()
+    replies = Reply.objects.filter(thread=thread)
 
     return render(request, 'thread_detail.html',
-                  {'threads': threads, 'thread': thread, 'topics': topics, 'side_threads': side_threads})
+                  {'threads': threads, 'thread': thread, 'topics': topics, 'side_threads': side_threads,
+                   'replies': replies})
 
 
