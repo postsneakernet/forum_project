@@ -16,7 +16,7 @@ def month_delta(date, delta):
 
 
 def side_bar_threads():
-    max = datetime.date.now();
+    max = datetime.now();
     min = month_delta(max, -1)
     threads = Thread.objects.filter(created__range=(min, max)).annotate(reply_count=Count('reply__id'))
 
