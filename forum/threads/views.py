@@ -1,21 +1,27 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from .models import Thread, Reply, Topic
+from django.db.models import Count
+import operator
 # Create your views here.
+
+def month_delta(date, delta):
+    m, y = (date.month + delta) % 12, date.year + ((date.month) + delta - 1) // 12
+    if not m: m = 12
+    d = min(date.day, [31,
+                       29 if y % 4 == 0 and not y % 400 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])
+    return date.replace(day=d, month=m, year=y)
 
 
 def side_bar_threads():
-    threads = Thread.objects.all()
+    max = datetime.date.now();
+    min = month_delta(max, -1)
+    threads = Thread.objects.filter(created__range=(min, max)).annotate(reply_count=Count('reply__id'))
 
-    return threads[:10]
-
-
-#
-# def thread(request, thread_slug):
-# my_thread = get_object_or_404(Thread, slug=thread_slug)
-# replies = Reply.objects.filter(thread=my_thread).values()
-#     return render(request, 'thread.html', {'replies': replies})
+    order = sorted(threads, key=operator.attrgetter('reply_count'), reverse=True)
+    return order[:10]
 
 
 class Home(generic.ListView):
