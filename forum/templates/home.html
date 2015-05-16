@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block brand %}
-
+    <li><h4>:: &nbsp; Recent Threads</h4></li>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
                       <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
                     </div>
                     <div class="feed_text">
-                        <p>{{ thread.title }}</p>
+                        <p><a href="{% url 'thread_detail' topic_slug=thread.subject.slug thread_slug=thread.slug %}">{{ thread.title }}</a></p>
                       <p>{{ thread.body }}</p>
                     </div>
                   </div>
@@ -43,8 +43,9 @@
 
 {% block sidebar %}
     {% if side_threads %}
-        {% for side_thread in side_threads %}
-            <i class="icon-ok"></i> {{ side_thread.title }}
+        {% for st in side_threads %}
+            <i class="icon-ok"></i>
+            <a href="{% url 'thread_detail' topic_slug=st.subject.slug thread_slug=st.slug %}">{{ st.title }}</a>
             <br/><br/>
         {% endfor %}
     {% endif %}

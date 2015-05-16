@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 {% load staticfiles %}
 
 {% block title %}
@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block brand %}
-    <li><h4>:: &nbsp; {{ topic.title }}</h4></li>
+    <li><h4>:: &nbsp; topic &nbsp; :: &nbsp; {{ topic.title }}</h4></li>
 {% endblock %}
 
 {% block content %}
