@@ -49,11 +49,13 @@ class TopicIndex(generic.ListView):
 class TopicDetail(generic.ListView):
     template_name = 'topic_detail.html'
     context_object_name = 'thread_index'
-    topic_slug = None
+    # topic_slug = None
     def get_context_data(self, **kwargs):
         context = super(TopicDetail, self).get_context_data(**kwargs)
         context['threads'] = Thread.objects.order_by('created')[:5]
         context['topics'] = Topic.objects.all()
+        context['topic'] = self.topic_slug
+
         context['side_threads'] = side_bar_threads()
         return context
 
@@ -61,9 +63,9 @@ class TopicDetail(generic.ListView):
         return Thread.objects.all()
 
 
-class ThreadDetail(generic.DetailView):
+class ThreadDetail(generic.ListView):
     template_name = 'thread_detail.html'
-    context_object_name = 'thread_detail'
+    # context_object_name = 'thread_detail'
 
     def get_context_data(self, **kwargs):
         context = super(ThreadDetail, self).get_context_data(**kwargs)

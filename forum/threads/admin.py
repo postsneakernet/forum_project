@@ -15,7 +15,6 @@ class ReplyAdmin(admin.ModelAdmin):
     # prepopulated_fields = {'slug': ('',)}
 
 
-
 admin.site.register(models.Topic, TopicAdmin)
 admin.site.register(models.Thread, ThreadAdmin)
 admin.site.register(models.Reply, ReplyAdmin)
