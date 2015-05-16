@@ -58,7 +58,6 @@ class TopicDetail(generic.ListView):
         return context
 
     def get_queryset(self):
-        topic_slug = self.kwargs['slug']
         return Thread.objects.all()
 
 
