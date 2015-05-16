@@ -76,6 +76,13 @@ def thread_detail(request, thread_slug, topic_slug):
     side_threads = side_bar_threads()
     replies = Reply.objects.filter(thread=thread)
 
+    if request.POST:
+        reply = request.POST.get("body", "replier", )
+        new_reply = Reply()
+        new_reply.body = reply[0]
+        new_reply.replier = reply[1]
+        new_reply.save()
+
     return render(request, 'thread_detail.html',
                   {'threads': threads, 'thread': thread, 'topics': topics, 'side_threads': side_threads,
                    'replies': replies})
