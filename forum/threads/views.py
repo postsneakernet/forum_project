@@ -58,10 +58,10 @@ class TopicDetail(generic.ListView):
     # topic_slug = None
     def get_context_data(self, **kwargs):
         context = super(TopicDetail, self).get_context_data(**kwargs)
-        context['threads'] = Thread.objects.order_by('created')[:5]
+        topic_slug = self.kwargs['topic_slug']
+        context['threads'] = Thread.objects.filter(subject__slug=topic_slug)
         context['topics'] = Topic.objects.all()
-        context['topic'] = self.topic_slug
-
+        context['topic'] = get_object_or_404(Topic,slug=topic_slug)
         context['side_threads'] = side_bar_threads()
         return context
 

@@ -41,10 +41,17 @@
           </button>
 
           <a class="brand" href="{% url 'home' %}">
-              {% block brand %}
-              Corgi
-              {% endblock %}
+              Forum
           </a>
+
+        <div class="nav-collapse collapse">
+            <ul class="nav pull-left">
+                {% block brand %}
+                    <li><h4>:: &nbsp; Test</h4></li>
+                {% endblock %}
+            </ul>
+        </div>
+
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
                 {% block navbar %}

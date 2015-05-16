@@ -2,5 +2,31 @@
 {% load staticfiles %}
 
 {% block title %}
+    {{ topic.slug }}
+{% endblock %}
 
+{% block brand %}
+    <li><h4>:: &nbsp; {{ topic.title }}</h4></li>
+{% endblock %}
+
+{% block content %}
+        {% if threads %}
+        {%  for thread in threads %}
+            <div class="feed_stacked">
+              <div class="feed_item">
+                <div class="feed_body">
+                  <div class="row">
+                    <div class="feed_profile_pic">
+                      <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
+                    </div>
+                    <div class="feed_text">
+                        <p><a href="{% url 'thread_detail' topic_slug=topic.slug thread_slug=thread.slug %}">{{ thread.title }}</a></p>
+                      <p>{{ thread.body }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
