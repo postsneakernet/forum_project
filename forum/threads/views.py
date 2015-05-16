@@ -8,5 +8,5 @@ from .models import Thread, Reply
 def index(request):
     threads = Thread.objects.all()
 
-    return render(request, 'index.html', {'threads': threads})
+    return render(request, 'home.html', {'threads': threads})
 
