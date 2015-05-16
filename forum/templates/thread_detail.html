@@ -1,6 +1,92 @@
 {% extends "home.html" %}
 {% load staticfiles %}
 
+{% block title %}
+    {{ thread.title }}
+{% endblock %}
+
+{% block brand %}
+    <li><h4>:: &nbsp; Topics &nbsp; :: &nbsp; {{ thread.subject.title }} &nbsp; :: &nbsp; {{ thread.title }}</h4></li>
+{% endblock %}
+
 {% block content %}
-<h1>hi</h1>
+        <div class="feed_stacked">
+              <div class="feed_item">
+                <div class="feed_body">
+                  <div class="row">
+                    <div class="feed_profile_pic">
+                      <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
+                    </div>
+                    <div class="feed_text">
+                        <p>{{ thread.title }}</p>
+                      <p>{{ thread.body }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="comment_area">
+                  <p>Add a comment</p>
+                  <form>
+                    <textarea rows="3" class="span6"></textarea><br/>
+                    <input type="submit" class="btn" />
+                  </form>
+                </div>
+                <hr class="feed_hr">
+                <div class="bottom_meta">
+                  <div class="row">
+                    <div class="bottom_left">
+                      <div class="share_wrapper">
+                        <div class="share"><a href="#" class="share_button"><i class="icon-heart"></i></a></div>
+                        <div class="share_hidden">
+                          <ul class="hover_heart">
+                            <span class="internal_heart"><i class="icon-heart"></i> Share This Post</span>
+                            <div class="social_links">
+                              <li><span><i class="icon-twitter"></i> Twitter</span></li>
+                              <li><span><i class="icon-facebook"></i> Facebook</span></li>
+                              <li><span><i class="icon-pinterest"></i> Pinterest</span></li>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bottom_right">
+                      <a href="#" class="show_comment_link">comment</a> <span>|</span> {{ thread.author }} thread.author <span>|</span> {{ thread.created }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        {%  for reply in replies %}
+            <div class="feed_stacked last_feed_item">
+              <div class="feed_item">
+                <div class="feed_body">
+                  <div class="row">
+                    <div class="feed_profile_pic">
+                      <img src="{% static "img/retriever.jpg" %}" alt="meta image" class="meta_image" />
+                    </div>
+                    <div class="feed_text">
+                      <p>{{ reply.body }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="feed_hr">
+                <div class="bottom_meta">
+                  <div class="row">
+
+                    <div class="bottom_right">
+                      {{ reply.author }} reply.author <span>|</span> 2 days ago
+                    </div>
+                  </div>
+                </div>
+                  <hr class="feed_hr">
+              </div>
+            </div>
+
+
+
+
+        {% endfor %}
 {% endblock %}
