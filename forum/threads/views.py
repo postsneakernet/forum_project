@@ -10,17 +10,16 @@ def side_bar_threads():
 
     return threads[:10]
 
+
 #
 # def thread(request, thread_slug):
-#     my_thread = get_object_or_404(Thread, slug=thread_slug)
+# my_thread = get_object_or_404(Thread, slug=thread_slug)
 #     replies = Reply.objects.filter(thread=my_thread).values()
 #     return render(request, 'thread.html', {'replies': replies})
 
 
 class Home(generic.ListView):
     template_name = 'home.html'
-    context_object_name = 'home'
-    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
@@ -28,6 +27,8 @@ class Home(generic.ListView):
         context['side_threads'] = side_bar_threads()
         context['topics'] = Topic.objects.all()
         return context
+    def get_queryset(self):
+        return Thread.objects.all()
 
 
 class Topics(generic.ListView):
@@ -51,6 +52,7 @@ class ThreadIndex(generic.ListView):
         context['topics'] = Topic.objects.all()
         context['side_threads'] = side_bar_threads()
         return context
+
 
 class ThreadDetail(generic.ListView):
     template_name = 'thread_detail.html'
