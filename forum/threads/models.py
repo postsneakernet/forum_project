@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Subject(models.Model):
+class Topic(models.Model):
     subject = models.CharField(max_length=200)
     slug = models.SlugField(max_length=50, unique=True)
     description = models.TextField()
@@ -19,7 +19,7 @@ class Thread(models.Model):
     body = models.TextField()
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    subject = models.ForeignKey(Subject)
+    subject = models.ForeignKey(Topic)
 
     def __str__(self):
         return self.title

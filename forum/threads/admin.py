@@ -12,6 +12,6 @@ class ReplyAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(models.Subject, SubjectAdmin)
+admin.site.register(models.Topic, SubjectAdmin)
 admin.site.register(models.Thread, ThreadAdmin)
 admin.site.register(models.Reply, ReplyAdmin)
