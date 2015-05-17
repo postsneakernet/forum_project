@@ -10,7 +10,8 @@
 {% endblock %}
 
 {% block brand %}
-    <li><h4>:: &nbsp; Recent Threads</h4></li>
+    <li><h4>::</h4></li>
+    <li><h4 class="Title">&nbsp;<a href="{% url 'home' %}" class="Title">Discussions</a></h4></li>
 {% endblock %}
 
 {% block content %}
@@ -24,8 +25,13 @@
                       <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
                     </div>
                     <div class="feed_text">
-                        <p><a href="{% url 'thread_detail' topic_slug=thread.subject.slug thread_slug=thread.slug %}">{{ thread.title }}</a></p>
-                      <p>{{ thread.body }}</p>
+                        <p><a href="{% url 'thread_detail' topic_slug=thread.topic.slug thread_slug=thread.slug %}">{{ thread.title }}</a>
+                        </p>
+                        <p>
+                            by {{ thread.author }} &nbsp;&nbsp;&nbsp; <i class="icon-tags"></i> &nbsp;
+                            <a href="{% url 'topic_detail' topic_slug=thread.topic.slug %}" >{{ thread.topic }}</a> &nbsp;&nbsp;&nbsp; {{ thread.created|date:"M d" }}
+                        </p>
+                      <p><i class="icon-quotes"></i> &nbsp; {{ thread.body|truncatechars:200 }}</p>
                     </div>
                   </div>
                 </div>
@@ -44,9 +50,13 @@
 {% block sidebar %}
     {% if side_threads %}
         {% for st in side_threads %}
-            <i class="icon-ok"></i>
-            <a href="{% url 'thread_detail' topic_slug=st.subject.slug thread_slug=st.slug %}">{{ st.title }}</a>
-            <br/><br/>
+            <div>
+                <span class="Number">{{ st.reply_count }}</span>
+                <span>
+                    <a href="{% url 'thread_detail' topic_slug=st.topic.slug thread_slug=st.slug %}">{{ st.title }}</a>
+                </span>
+                <br/><br/>
+            </div>
         {% endfor %}
     {% endif %}
 {% endblock %}
@@ -62,7 +72,7 @@
         {% for topic in topics %}
                 <div class="span2">
                   <li>
-                      <i class="icon-facebook"></i><a href="{% url 'topic_detail' topic_slug=topic.slug %}">{{ topic.title }}</a></li>
+                      <i class="icon-tag"></i><a href="{% url 'topic_detail' topic_slug=topic.slug %}">{{ topic.title }}</a></li>
                 </div>
         {% endfor %}
             </div>

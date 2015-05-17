@@ -6,7 +6,13 @@
 {% endblock %}
 
 {% block brand %}
-    <li><h4>:: &nbsp; Topics &nbsp; :: &nbsp; {{ thread.subject.title }} &nbsp; :: &nbsp; {{ thread.title }}</h4></li>
+    <li><h4>::&nbsp;<a href="{% url 'topic_index' %}" class="Faded">Topics</a>&nbsp;::&nbsp;</h4></li>
+    <li><h4><a href="{% url 'topic_detail' topic_slug=thread.topic.slug %}" class="Faded">{{ thread.topic.title }}</a>
+    </h4></li>
+    <li><h4>&nbsp;::&nbsp;</h4></li>
+    <li><h4 class="Title">
+        <a href="{% url 'thread_detail' topic_slug=thread.topic.slug thread_slug=thread.slug %}" class="Title">{{ thread.title }}</a>
+    </h4></li>
 {% endblock %}
 
 {% block content %}

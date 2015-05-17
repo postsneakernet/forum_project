@@ -1,0 +1,21 @@
+
+
+.Number {
+    background: #0668d3;
+    color: #eee;
+    border-radius: .4ex;
+    padding: 1px .8ex;
+}
+
+
+.Title {
+    color: #eee;
+}
+
+.Faded {
+    color: inherit;
+}
+
+.Side {
+    float: left;
+}
