@@ -1,13 +1,12 @@
 from django.db import models
 
-# Create your models here.
 
 class Topic(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     body = models.TextField()
-    modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -15,25 +14,27 @@ class Topic(models.Model):
 
 class Thread(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
+    author = models.CharField(max_length=50, default="anonymous")
+    topic = models.ForeignKey(Topic)
     body = models.TextField()
-    author = models.CharField(max_length=100, default=' ')
-    modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    subject = models.ForeignKey(Topic)
+    modified = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.title
 
 
 class Reply(models.Model):
-    # title = models.CharField(max_length=200)
-    replier = models.CharField(max_length=100, default=' ')
-    slug = models.SlugField(max_length=50)
-    body = models.TextField()
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=50, default="anonymous")
     thread = models.ForeignKey(Thread)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "replies"
 
     def __str__(self):
-        return self.slug
+        return str(self.id) + " re: " + self.thread.title
 

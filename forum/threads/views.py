@@ -1,11 +1,10 @@
 from datetime import datetime
-from django.shortcuts import render
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from .models import Thread, Reply, Topic
 from django.db.models import Count
 import operator
-# Create your views here.
+
 
 def month_delta(date, delta):
     m, y = (date.month + delta) % 12, date.year + ((date.month) + delta - 1) // 12
@@ -26,16 +25,16 @@ def side_bar_threads():
 
 class Home(generic.ListView):
     template_name = 'home.html'
+    context_object_name = 'threads'
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context['threads'] = Thread.objects.order_by('created')[:5]
         context['side_threads'] = side_bar_threads()
         context['topics'] = Topic.objects.all()
         return context
 
     def get_queryset(self):
-        return Thread.objects.all()
+        return Thread.objects.order_by('created')[:5]
 
 
 class TopicIndex(generic.ListView):
@@ -44,37 +43,33 @@ class TopicIndex(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TopicIndex, self).get_context_data(**kwargs)
-        context['topics'] = Topic.objects.all()
         context['side_threads'] = side_bar_threads()
         return context
 
     def get_queryset(self):
-        return Thread.objects.all()
+        return Topic.objects.all()
 
 
 class TopicDetail(generic.ListView):
     template_name = 'topic_detail.html'
-    context_object_name = 'thread_index'
-    # topic_slug = None
+    context_object_name = 'threads'
+
     def get_context_data(self, **kwargs):
         context = super(TopicDetail, self).get_context_data(**kwargs)
-        topic_slug = self.kwargs['topic_slug']
-        context['threads'] = Thread.objects.filter(subject__slug=topic_slug)
-        context['topics'] = Topic.objects.all()
-        context['topic'] = get_object_or_404(Topic, slug=topic_slug)
+        context['topic'] = get_object_or_404(Topic, slug=self.kwargs['topic_slug'])
         context['side_threads'] = side_bar_threads()
+        context['topics'] = Topic.objects.all()
         return context
 
     def get_queryset(self):
-        return Thread.objects.all()
+        return Thread.objects.filter(topic__slug=self.kwargs['topic_slug'])
 
 
-def thread_detail(request, thread_slug, topic_slug):
-    threads = Thread.objects.order_by('created')[:5]
+def thread_detail(request, topic_slug, thread_slug):
     thread = get_object_or_404(Thread, slug=thread_slug)
-    topics = Topic.objects.all()
-    side_threads = side_bar_threads()
     replies = Reply.objects.filter(thread=thread)
+    side_threads = side_bar_threads()
+    topics = Topic.objects.all()
 
     if request.POST:
         reply = request.POST.get("body", "replier", )
@@ -83,8 +78,7 @@ def thread_detail(request, thread_slug, topic_slug):
         new_reply.replier = reply[1]
         new_reply.save()
 
-    return render(request, 'thread_detail.html',
-                  {'threads': threads, 'thread': thread, 'topics': topics, 'side_threads': side_threads,
-                   'replies': replies})
-
-
+    return render(request, 'thread_detail.html', {
+            'thread': thread, 'replies': replies, 'topics': topics,
+            'side_threads': side_threads,
+            })
