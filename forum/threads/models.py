@@ -8,6 +8,12 @@ class Topic(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['title']
+
+    def most_recent_thread(self):
+        return Thread.objects.filter(topic=self)[:1]
+
     def __str__(self):
         return self.title
 
@@ -21,6 +27,9 @@ class Thread(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return self.title
 
@@ -33,6 +42,7 @@ class Reply(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
+        ordering = ['created']
         verbose_name_plural = "replies"
 
     def __str__(self):

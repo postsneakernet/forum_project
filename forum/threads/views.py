@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.views import generic
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Thread, Reply, Topic
 from django.db.models import Count
 import operator
@@ -10,7 +10,7 @@ def month_delta(date, delta):
     m, y = (date.month + delta) % 12, date.year + ((date.month) + delta - 1) // 12
     if not m: m = 12
     d = min(date.day, [31,
-                       29 if y % 4 == 0 and not y % 400 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])
+            29 if y % 4 == 0 and not y % 400 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])
     return date.replace(day=d, month=m, year=y)
 
 
@@ -34,7 +34,7 @@ class Home(generic.ListView):
         return context
 
     def get_queryset(self):
-        return Thread.objects.order_by('created')[:5]
+        return Thread.objects.all()[:5].annotate(reply_count=Count('reply__id'))
 
 
 class TopicIndex(generic.ListView):
@@ -47,7 +47,7 @@ class TopicIndex(generic.ListView):
         return context
 
     def get_queryset(self):
-        return Topic.objects.all()
+        return Topic.objects.annotate(thread_count=Count('thread__id'))
 
 
 class TopicDetail(generic.ListView):
@@ -62,7 +62,7 @@ class TopicDetail(generic.ListView):
         return context
 
     def get_queryset(self):
-        return Thread.objects.filter(topic__slug=self.kwargs['topic_slug'])
+        return Thread.objects.filter(topic__slug=self.kwargs['topic_slug']).annotate(reply_count=Count('reply__id'))
 
 
 def thread_detail(request, topic_slug, thread_slug):
@@ -72,13 +72,19 @@ def thread_detail(request, topic_slug, thread_slug):
     topics = Topic.objects.all()
 
     if request.POST:
-        reply = request.POST.get("body", "replier", )
         new_reply = Reply()
-        new_reply.body = reply[0]
-        new_reply.replier = reply[1]
+        author = request.POST.get('author')
+        if author:
+            new_reply.author = author
+        new_reply.thread = thread
+        new_reply.body = request.POST.get('body', '')
         new_reply.save()
+        return redirect('thread_detail', topic_slug, thread_slug)
 
     return render(request, 'thread_detail.html', {
             'thread': thread, 'replies': replies, 'topics': topics,
             'side_threads': side_threads,
             })
+
+def create(request):
+    return render(request, 'create.html')

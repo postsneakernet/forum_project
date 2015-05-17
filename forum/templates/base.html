@@ -1,11 +1,11 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>
         {% block title %}
-        Corgi: A new Bootstrap Theme
+            Corgi: A new Bootstrap Theme
         {% endblock %}
     </title>
     <meta name="description" content="A new bootstrap theme">
@@ -26,150 +26,168 @@
       <script src="{% static "js/html5shiv.js" %}"></script>
     <![endif]-->
     <style>
-      body {
-        padding-top: 80px; /* Only include this for the fixed top bar */
-      }
+        body {
+            padding-top: 80px; /* Only include this for the fixed top bar */
+        }
     </style>
-  </head>
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-          <a class="brand" href="{% url 'home' %}">
-              Forum
-          </a>
+            <a class="brand" href="{% url 'home' %}">
+                Forum
+            </a>
 
-        <div class="nav-collapse collapse">
-            <ul class="nav pull-left">
-                {% block brand %}
-                    <li><h4>:: &nbsp; Test</h4></li>
-                {% endblock %}
-            </ul>
-        </div>
-
-          <div class="nav-collapse collapse">
-            <ul class="nav pull-right">
-                {% block navbar %}
-              <li><a href="{% url 'topic_index' %}">Topics</a></li>
-              <li><a href="#">About</a></li>
-                {% endblock %}
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="span8">
-          <div class="corgi_feed_well">
-
-        {% block content %}
-            <div class="feed_stacked">
-              <div class="feed_item">
-                <div class="feed_body">
-                  <div class="row">
-                    <div class="feed_profile_pic">
-                      <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
-                    </div>
-                    <div class="feed_text">
-                      <p>This micro bootstrap theme is great for any application that requires a feed stream. It has a stacked feed layout and an individual feed layout too.</p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-left">
+                    {% block brand %}
+                        <li><h4>:: &nbsp; Test</h4></li>
+                    {% endblock %}
+                </ul>
             </div>
-          {% endblock %}
 
-          </div>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    {% block navbar %}
+                        <li><a href="{% url 'topic_index' %}">Topics</a></li>
+                        <li><a href="#">About</a></li>
+                    {% endblock %}
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <div class="corgi_feed_well">
+
+                {% block content %}
+                    <div class="feed_stacked">
+                        <div class="feed_item">
+                            <div class="feed_body">
+                                <div class="row">
+                                    <div class="feed_profile_pic">
+                                        <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
+                                    </div>
+                                    <div class="feed_text">
+                                        <p>This micro bootstrap theme is great for any application that requires a feed stream. It has a stacked feed layout and an individual feed layout too.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endblock %}
+
+            </div>
 
         </div> <!-- end span8 -->
         <div class="span4">
-          <div class="corgi_feed_well">
-            <div class="sidebar_header">
-              <div class="sidebar_title">
-              <h4>
-                  {% block sidebartitle %}
-                      Sidebar
-                  {% endblock %}
-              </h4>
-              </div>
+
+            <div class="corgi_feed_well">
+                <div class="sidebar_header">
+                    <div class="sidebar_title">
+                        <h4>
+                            Create new thread
+                        </h4>
+                    </div>
+                </div>
+                <hr class="feed_hr" />
+                <div class="sidebar_interior">
+                    {% block newthread %}
+                        <i class="icon-ok"></i> Sidebar
+                        <br/><br/>
+                    {% endblock %}
+                </div>
             </div>
-            <hr class="feed_hr" />
-            <div class="sidebar_interior">
-                {% block sidebar %}
-              <i class="icon-ok"></i> Sidebar
-              <br/><br/>
-                {% endblock %}
+
+            <div class="corgi_feed_well">
+                <div class="sidebar_header">
+                    <div class="sidebar_title">
+                        <h4>
+                            {% block sidebartitle %}
+                                Sidebar
+                            {% endblock %}
+                        </h4>
+                    </div>
+                </div>
+                <hr class="feed_hr" />
+                <div class="sidebar_interior">
+                    {% block sidebar %}
+                        <i class="icon-ok"></i> Sidebar
+                        <br/><br/>
+                    {% endblock %}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="span12">
-          <div class="corgi_feed_well">
-            <div class="well_padding">
-            <h3>
-                {% block bottomtitle %}
-                    Bottom
-                {% endblock %}
-            </h3>
+            <div class="corgi_feed_well">
+                <div class="well_padding">
+                    <h4>
+                        {% block bottomtitle %}
+                            Bottom
+                        {% endblock %}
+                    </h4>
+                </div>
+                <hr class="title_hr" />
+                <div class="well_padding">
+                    {% block bottom %}
+                        <p>Bottom</p>
+                        <ul class="elusive_icons">
+                            <div class="row">
+                                <div class="span2">
+                                    <li><i class="icon-facebook"></i> icon-facebook</li>
+                                </div>
+                                <div class="span2">
+                                    <li><i class="icon-website"></i> icon-website</li>
+                                </div>
+                                <div class="span2">
+                                    <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
+                                </div>
+                                <div class="span2">
+                                    <li><i class="icon-graph-alt"></i> icon-graph-alt</li>
+                                </div>
+                                <div class="span2">
+                                    <li><i class="icon-css"></i> icon-css</li>
+                                </div>
+                            </div>
+                        </ul>
+                    {% endblock %}
+                </div>
             </div>
-            <hr class="title_hr" />
-            <div class="well_padding">
-                {% block bottom %}
-              <p>Bottom</p>
-              <ul class="elusive_icons">
-                <div class="row">
-                <div class="span2">
-                  <li><i class="icon-facebook"></i> icon-facebook</li>
-                </div>
-                <div class="span2">
-                  <li><i class="icon-website"></i> icon-website</li>
-                </div>
-                <div class="span2">
-                  <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
-                </div>
-                <div class="span2">
-                  <li><i class="icon-graph-alt"></i> icon-graph-alt</li>
-                </div> 
-                <div class="span2">
-                  <li><i class="icon-css"></i> icon-css</li>
-                </div>
-              </div>
-              </ul>
-                {% endblock %}
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-    <br/><br/>
-    <div class="corgi_footer">
-      <div class="container">
+</div>
+<br/><br/>
+<div class="corgi_footer">
+    <div class="container">
         <div class="row">
-          <div class="span12">
-              {% block footer %}
-            <ul>
-              <li><a href="/admin">Admin</a></li>
-            </ul>
-            <div class="corgi_copyright">
-              &copy; 2013 Bootstrap Micro
+            <div class="span12">
+                {% block footer %}
+                    <ul>
+                        <li><a href="/admin">Admin</a></li>
+                    </ul>
+                    <div class="corgi_copyright">
+                        &copy; 2013 Bootstrap Micro
+                    </div>
+                {% endblock %}
             </div>
-              {% endblock %}
-          </div>
         </div>
-      </div>
     </div>
-    <!-- Le javascript
-    ================================================== -->
-   <script src="{% static "js/bootstrap.js" %}"></script>
-  </body>
+</div>
+<!-- Le javascript
+================================================== -->
+<script src="{% static "js/bootstrap.js" %}"></script>
+</body>
 </html>

@@ -11,7 +11,7 @@
 
 {% block brand %}
     <li><h4>::</h4></li>
-    <li><h4 class="Title">&nbsp;<a href="{% url 'home' %}" class="Title">Discussions</a></h4></li>
+    <li><h4 class="Title">&nbsp;<a href="{% url 'home' %}" class="Title">Threads</a></h4></li>
 {% endblock %}
 
 {% block content %}
@@ -25,13 +25,16 @@
                       <img src="{% static "img/corgi.jpg" %}" alt="meta image" class="meta_image" />
                     </div>
                     <div class="feed_text">
-                        <p><a href="{% url 'thread_detail' topic_slug=thread.topic.slug thread_slug=thread.slug %}">{{ thread.title }}</a>
+                        <p><h4><a href="{% url 'thread_detail' topic_slug=thread.topic.slug thread_slug=thread.slug %}">{{ thread.title }}</a></h4></p>
+                        <p>
+                            <i class="icon-tags"></i>&nbsp;
+                            <a href="{% url 'topic_detail' topic_slug=thread.topic.slug %}" >{{ thread.topic }}</a>
                         </p>
                         <p>
-                            by {{ thread.author }} &nbsp;&nbsp;&nbsp; <i class="icon-tags"></i> &nbsp;
-                            <a href="{% url 'topic_detail' topic_slug=thread.topic.slug %}" >{{ thread.topic }}</a> &nbsp;&nbsp;&nbsp; {{ thread.created|date:"M d" }}
+                            by {{ thread.author }} &nbsp;&nbsp;&nbsp; {{ thread.created|date:"M d" }}
+                            &nbsp;&nbsp;&nbsp; <span class="Number">{{ thread.reply_count }}</span> comments
                         </p>
-                      <p><i class="icon-quotes"></i> &nbsp; {{ thread.body|truncatechars:200 }}</p>
+                        <p><i class="icon-quotes"></i> &nbsp; {{ thread.body|truncatechars:200 }}</p>
                     </div>
                   </div>
                 </div>
@@ -40,7 +43,12 @@
             </div>
         {% endfor %}
     {% endif %}
+{% endblock %}
 
+{% block newthread %}
+    <form action="{% url 'create' %}">
+        <input type="submit" class="btn btn-primary" value="New thread"/>
+    </form>
 {% endblock %}
 
 {% block sidebartitle %}
@@ -72,7 +80,7 @@
         {% for topic in topics %}
                 <div class="span2">
                   <li>
-                      <i class="icon-tag"></i><a href="{% url 'topic_detail' topic_slug=topic.slug %}">{{ topic.title }}</a></li>
+                      <i class="icon-tag"></i>&nbsp;<a href="{% url 'topic_detail' topic_slug=topic.slug %}">{{ topic.title }}</a></li>
                 </div>
         {% endfor %}
             </div>
