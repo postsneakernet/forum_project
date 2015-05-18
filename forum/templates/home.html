@@ -9,6 +9,17 @@
     {{ block.super }}
 {% endblock %}
 
+{% block notify %}
+    {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-{{ m.tags }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{ m.tags|capfirst }}!</strong> {{ m }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
 {% block brand %}
     <li><h4>::</h4></li>
     <li><h4 class="Title">&nbsp;<a href="{% url 'home' %}" class="Title">Threads</a></h4></li>

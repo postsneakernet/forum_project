@@ -29,12 +29,14 @@
                                 </p>
                                 <p>{{ topic.body }}</p>
                                 <p>
-                                    <span class="Number">{{ topic.thread_count }}</span> threads &nbsp;&nbsp;&nbsp;
-                            <span>
-                                {% if topic.most_recent_thread.0 %}
-                                    Most recent: {{ topic.most_recent_thread.0.title }}
-                                {% endif %}
-                            </span>
+                                    <span class="Number">{{ topic.thread_count }}</span> threads
+                                </p>
+                                <p>
+                                    <span>
+                                    {% if topic.most_recent_thread.0 %}
+                                        Recent: {{ topic.most_recent_thread.0.title }}
+                                    {% endif %}
+                                    </span>
                                 </p>
                             </div>
                         </div>

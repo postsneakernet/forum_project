@@ -2,5 +2,55 @@
 {% load staticfiles %}
 
 {% block title %}
-    Create
+    Create Thread
+{% endblock %}
+
+{% block brand %}
+    <li><h4 class="Faded">::&nbsp;</h4></li>
+    <li><h4 class="Title"><a href="{% url 'create' %}" class="Title">Create new thread</a></h4></li>
+{% endblock %}
+
+{% block content %}
+    <div class="feed_stacked">
+        <div class="feed_item">
+            <div class="feed_body">
+            </div>
+        </div>
+    </div>
+
+    <div class="feed_stacked last_feed_item">
+        <div class="feed_item">
+            <div class="Create">
+                <h4>Create thread</h4><br/>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input name="author" placeholder=" Name" />
+                    <br/><br/>
+                    <input name="title" placeholder=" Title" />
+                    <br/><br/>
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-tags"></i></span>
+                        <select name="topic_id" class="btn">
+                            {% for topic in topics %}
+                                <option value="{{ topic.id }}">{{ topic.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br/><br/>
+                    <textarea rows="3" class="span6" name="body"></textarea><br/><br/>
+                    <input type="submit" class="btn" />
+                </form>
+            </div>
+            <hr class="feed_hr">
+            <div class="bottom_meta">
+                <div class="row">
+                    <div class="bottom_left">
+                        <h3></h3>
+                    </div>
+                    <div class="bottom_right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -52,6 +52,53 @@
                 </div>
             </div>
         </div>
+    {% endif %}
+{% endblock %}
 
+{% block page %}
+    {% if is_paginated %}
+        <div class="corgi_feed_well">
+            <div class="individual_feed_item">
+                <div class="feed_item">
+                    <div class="feed_body">
+                    </div>
+                    <div class="bottom_meta">
+                        <div class="row">
+                            <div class="bottom_left">
+                                {%  if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">
+                                        <button class="btn" type="submit"><i class="icon-chevron-left"></i>&nbsp;prev</button>
+                                    </a>
+                                    <span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                {% else %}
+                                    <span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                {% endif %}
+
+                            </div>
+                            <div class="bottom_right">
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">
+                                        <button class="btn" type="submit"><i class="icon-chevron-right"></i>&nbsp;next</button>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}
