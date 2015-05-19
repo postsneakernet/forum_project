@@ -108,13 +108,15 @@ def create(request):
         title = request.POST.get('title')
         topic_id = request.POST.get('topic_id')
         body = request.POST.get('body')
-        if author and title and topic_id and body:
+        if title and topic_id and body:
             slug = slugify(title)
 
             if Thread.objects.filter(slug=slug).exists():
                 return redirect('create')
 
-            new_thread.author = author
+            if author:
+                new_thread.author = author
+
             new_thread.title = title
             new_thread.slug = slug
             new_thread.topic = Topic.objects.get(id=topic_id)
