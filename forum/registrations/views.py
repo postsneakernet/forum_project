@@ -31,7 +31,7 @@ def register(request):
             if password1 == password2:
                 new_user = User()
                 new_user.username = user_name
-                new_user.password = password1
+                new_user.set_password(password1)
                 new_user.email = email
                 new_user.save()
                 messages.success(request, "Username successfully created")

@@ -59,8 +59,13 @@
                         <li><a href="{% url 'topic_index' %}">Topics</a></li>
 
 
-                        {% if a %}
-                            <li><a href="#">{{ user }}</a></li>
+                        {% if user.is_authenticated %}
+                            <li>
+                                <form method="POST" action="{% url 'logout' %}" name="logout">
+                                    {% csrf_token %}
+                                    <input class="SubmitLink" type="submit" value="{{ user }} (logout)"/>
+                                </form>
+                            </li>
                         {% else %}
                             <li><a href="{% url 'login' %}">Login</a></li>
                             <li><a href="{% url 'register' %}">Register</a></li>
