@@ -15,7 +15,7 @@ def register(request):
             if password1 == password2:
                 pass
 
-    return render(request, 'request.html', {
+    return render(request, 'register.html', {
         'user_name': user_name, 'email': email, 'password1': password1,
         'password2': password2,
     })
