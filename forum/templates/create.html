@@ -24,9 +24,9 @@
                 <h4>Create thread</h4><br/>
                 <form method="POST">
                     {% csrf_token %}
-                    <input name="author" placeholder=" Name" />
+                    <input type="text" name="author" placeholder=" Name" />
                     <br/><br/>
-                    <input name="title" placeholder=" Title" />
+                    <input type="text" name="title" placeholder=" Title" />
                     <br/><br/>
                     <div class="input-prepend">
                         <span class="add-on"><i class="icon-tags"></i></span>
