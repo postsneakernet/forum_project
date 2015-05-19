@@ -1,9 +1,12 @@
-from django.core.checks import messages
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 # Create your views here.
 
 #
+
+
+
 def register(request):
     user_name = ''
     password1 = ''
@@ -15,6 +18,13 @@ def register(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         email = request.POST.get('email')
+
+        try:
+            if User.objects.filter(username=user_name).exists():
+                messages.error(request, "Username already in use")
+                return redirect('register')
+        except User.DoesNotExist:
+            pass
 
         if user_name and password1 and password2 and email:
             if password1 == password2:
@@ -32,6 +42,7 @@ def register(request):
         else:
             messages.error(request, "Please fill out all required fields")
             return redirect('register')
+
 
     return render(request, 'register.html', {
         'user_name': user_name, 'email': email, 'password1': password1,
