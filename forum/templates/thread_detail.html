@@ -70,13 +70,22 @@
     <div class="feed_stacked last_feed_item">
         <div class="feed_item">
             <div class="comment_area">
-                <p>Add a comment</p>
-                <form method="POST">
-                    {% csrf_token %}
-                    <input name="author" placeholder=" Name" /><br/><br/>
-                    <textarea rows="3" class="span6" name="body"></textarea><br/>
-                    <input type="submit" class="btn" />
-                </form>
+                {% if user.is_authenticated %}
+                    <p>Add a comment</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input name="author" placeholder=" Name" /><br/><br/>
+                        <textarea rows="3" class="span6" name="body"></textarea><br/>
+                        <input type="submit" class="btn" />
+                    </form>
+                {% else %}
+                    <p>
+                        You need to be logged in to add a comment.<br/><br/>
+                        Please
+                    <a href="{% url 'login' %}">login</a> or
+                    <a href="{% url 'register' %}">register</a>.
+                    </p>
+                {% endif %}
             </div>
             <hr class="feed_hr">
             <div class="bottom_meta">
