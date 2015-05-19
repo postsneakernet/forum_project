@@ -24,13 +24,13 @@ def register(request):
                 new_user.email = email
                 new_user.save()
                 messages.success(request, "Success!")
-                messages.redirect('/')
+                return redirect('/')
             else:
-                messages.Error(request, "Passwords do not match")
+                messages.error(request, "Passwords do not match")
                 return redirect('register')
 
         else:
-            messages.Error(request, "Please fill out all required fields")
+            messages.error(request, "Please fill out all required fields")
             return redirect('register')
 
     return render(request, 'register.html', {
