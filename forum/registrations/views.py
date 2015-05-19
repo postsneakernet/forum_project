@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 #
-def register(request, user_slug):
+def register(request):
     if request.POST:
         new_user = User()
         user_name = request.POST.get('name')
@@ -11,11 +11,11 @@ def register(request, user_slug):
         password2 = request.POST.get('password2')
         email = request.POST.get('email')
 
-        if name and password1 and password2 and email:
+        if user_name and password1 and password2 and email:
             if password1 == password2:
                 pass
 
-      return render(request, 'request.html', {
-            'user_name': user_name, 'email': email, 'password1': password1,
-            'password2': password2,
+    return render(request, 'request.html', {
+        'user_name': user_name, 'email': email, 'password1': password1,
+        'password2': password2,
     })
