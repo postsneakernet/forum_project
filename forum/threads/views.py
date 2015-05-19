@@ -119,6 +119,8 @@ def create(request):
 
             new_thread.title = title
             new_thread.slug = slug
+
+            new_thread.body = body
             new_thread.topic = Topic.objects.get(id=topic_id)
             new_thread.save()
             messages.success(request,"New thread successfully created!")

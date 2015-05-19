@@ -45,7 +45,7 @@
                             by {{ thread.author }} &nbsp;&nbsp;&nbsp; {{ thread.created|date:"M d" }}
                             &nbsp;&nbsp;&nbsp; <span class="Number">{{ thread.reply_count }}</span> comments
                         </p>
-                        <p><i class="icon-quotes"></i> &nbsp; {{ thread.body|truncatechars:200 }}</p>
+                        <p><i class="icon-quotes"></i> &nbsp; <p>{{ thread.body|truncatechars:200 }}</p></p>
                     </div>
                   </div>
                 </div>
