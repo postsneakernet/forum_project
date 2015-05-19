@@ -57,8 +57,14 @@
                 <ul class="nav pull-right">
                     {% block navbar %}
                         <li><a href="{% url 'topic_index' %}">Topics</a></li>
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                        <li><a href="{% url 'register' %}">Register</a></li>
+
+
+                        {% if a %}
+                            <li><a href="#">{{ user }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                        {% endif %}
                     {% endblock %}
                 </ul>
             </div><!--/.nav-collapse -->

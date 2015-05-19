@@ -35,6 +35,7 @@ def register(request):
                 new_user.email = email
                 new_user.save()
                 messages.success(request, "Username successfully created")
+
                 return redirect('/')
             else:
                 messages.error(request, "Passwords do not match")
