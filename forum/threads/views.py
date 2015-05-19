@@ -112,6 +112,7 @@ def create(request):
             slug = slugify(title)
 
             if Thread.objects.filter(slug=slug).exists():
+                messages.error(request, "Oops, there was an error creating thread.")
                 return redirect('create')
 
             if author:
@@ -123,7 +124,7 @@ def create(request):
             new_thread.body = body
             new_thread.topic = Topic.objects.get(id=topic_id)
             new_thread.save()
-            messages.success(request,"New thread successfully created!")
+            messages.success(request, "New thread successfully created!")
             return redirect('/')
         else:
             messages.error(request, "Oops, there was an error creating thread.")
