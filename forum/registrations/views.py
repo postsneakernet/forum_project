@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 
 #
 def register(request):
+    user_name, password1, password2, email = ''
+
     if request.POST:
         user_name = request.POST.get('name')
         password1 = request.POST.get('password1')
@@ -19,6 +21,7 @@ def register(request):
                 new_user.email = email
                 new_user.save()
                 messages.success(request, "Success!")
+                messages.redirect('/')
             else:
                 messages.Error(request, "Passwords do not match")
                 return redirect('register')
@@ -26,8 +29,6 @@ def register(request):
         else:
             messages.Error(request, "Please fill out all required fields")
             return redirect('register')
-
-
 
     return render(request, 'register.html', {
         'user_name': user_name, 'email': email, 'password1': password1,
