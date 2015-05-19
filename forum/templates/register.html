@@ -21,7 +21,18 @@
         <div class="feed_item">
             <div class="Create">
                 <h4>Register for the forums</h4><br/>
-
+                <form method="POST">
+                    {% csrf_token %}
+                    <input name="name" placeholder=" Name" />
+                    <br/><br/>
+                    <input type="email" name="email" placeholder=" Email" />
+                    <br/><br/>
+                    <input type="password" name="password1" placeholder=" Password" />
+                    <br/><br/>
+                    <input type="password" name="password2" placeholder=" Password" />
+                    <br/><br/>
+                    <input type="submit" class="btn" />
+                </form>
             </div>
             <hr class="feed_hr">
             <div class="bottom_meta">
