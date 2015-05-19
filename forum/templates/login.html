@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block brand %}
+    <li><h4 class="Faded">::&nbsp;</h4></li>
+    <li><h4 class="Title"><a href="{% url 'login' %}" class="Title">Login</a></h4></li>
+{% endblock %}
+
+{% block content %}
+    <div class="feed_stacked">
+        <div class="feed_item">
+            <div class="feed_body">
+            </div>
+        </div>
+    </div>
+
+    <div class="feed_stacked last_feed_item">
+        <div class="feed_item">
+            <div class="Create">
+                <h4>Please login</h4><br/>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder=" Name" />
+                    <br/><br/>
+                    <input type="password" name="password" placeholder=" Password" />
+                    <br/><br/>
+                    <input type="submit" class="btn" value="Login"/>
+                </form>
+            </div>
+            <hr class="feed_hr">
+            <div class="bottom_meta">
+                <div class="row">
+                    <div class="bottom_left">
+                        <h3></h3>
+                    </div>
+                    <div class="bottom_right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
