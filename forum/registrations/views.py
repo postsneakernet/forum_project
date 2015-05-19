@@ -5,7 +5,10 @@ from django.contrib.auth.models import User
 
 #
 def register(request):
-    user_name, password1, password2, email = ''
+    user_name = ''
+    password1 = ''
+    password2 = ''
+    email = ''
 
     if request.POST:
         user_name = request.POST.get('name')
