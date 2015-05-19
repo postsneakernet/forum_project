@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from threads.views import side_bar_threads
+from threads.models import Topic
 # Create your views here.
 
 #
@@ -12,6 +14,8 @@ def register(request):
     password1 = ''
     password2 = ''
     email = ''
+    side_threads = side_bar_threads()
+    topics = Topic.objects.all()
 
     if request.POST:
         user_name = request.POST.get('name')
@@ -43,8 +47,7 @@ def register(request):
             messages.error(request, "Please fill out all required fields")
             return redirect('register')
 
-
     return render(request, 'register.html', {
         'user_name': user_name, 'email': email, 'password1': password1,
-        'password2': password2,
+        'password2': password2, 'side_threads': side_threads, 'topics': topics
     })
