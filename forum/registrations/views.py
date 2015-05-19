@@ -1,12 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+
 from threads.views import side_bar_threads
 from threads.models import Topic
-# Create your views here.
-
-#
-
 
 
 def register(request):
@@ -37,7 +34,7 @@ def register(request):
                 new_user.password = password1
                 new_user.email = email
                 new_user.save()
-                messages.success(request, "Success!")
+                messages.success(request, "Username successfully created")
                 return redirect('/')
             else:
                 messages.error(request, "Passwords do not match")
